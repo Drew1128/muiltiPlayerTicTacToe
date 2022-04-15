@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 const Login = () => {
-    
+    const [username, setUserName] = useState('')
+    const [password, setPassword] = useState('')
 
     const signUp = () => {
         return null
@@ -13,7 +14,7 @@ const Login = () => {
         <label>Login Up</label>
         <input 
         type='text' 
-        placeholder='First Name' 
+        placeholder='Username' 
         onChange={(event) => {
             setUser({...user, firstName: event.target.value})
         }} />
@@ -21,19 +22,13 @@ const Login = () => {
         type='text' 
         placeholder='Last Name' 
         onChange={(event) => {
-            setUser({...user, lastName: event.target.value})
-        }} />
-        <input 
-        type='text' 
-        placeholder='Username' 
-        onChange={(event) => {
-            setUser({...user, username: event.target.value})
+            setUserName( event.target.value)
         }} />
         <input 
         type='text' 
         placeholder='Password' 
         onChange={(event) => {
-            setUser({...user, password: event.target.value})
+            setUserName(event.target.value)
         }} />
         <button 
         onClick={() => {
