@@ -16,7 +16,7 @@ const Login = () => {
         type='text' 
         placeholder='Username' 
         onChange={(event) => {
-            setUser({...user, firstName: event.target.value})
+            setUserName(event.target.value)
         }} />
         <input 
         type='text' 
