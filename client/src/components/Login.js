@@ -1,42 +1,46 @@
-import React, {useState} from 'react'
+import React, { useState } from "react";
+import Axios from "axios";
+import Cookies from "universal-cookie";
 
-const Login = () => {
-    const [username, setUserName] = useState('')
-    const [password, setPassword] = useState('')
+function Login({ setIsAuth }) {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-    const signUp = () => {
-        return null
-    }
-
-   
+  const cookies = new Cookies();
+  const login = () => {
+    Axios.post("http://localhost:3001/login", {
+      username,
+      password,
+    }).then((res) => {
+      const { firstName, lastName, username, token, userId } = res.data;
+      cookies.set("token", token);
+      cookies.set("userId", userId);
+      cookies.set("username", username);
+      cookies.set("firstName", firstName);
+      cookies.set("lastName", lastName);
+      setIsAuth(true);
+    });
+  };
   return (
-    <div className='login'>
-        <label>Login Up</label>
-        <input 
-        type='text' 
-        placeholder='Username' 
+    <div className="login">
+      <label> Login</label>
+
+      <input
+        placeholder="Username"
         onChange={(event) => {
-            setUserName(event.target.value)
-        }} />
-        <input 
-        type='text' 
-        placeholder='Last Name' 
+          setUsername(event.target.value);
+        }}
+      />
+      <input
+        placeholder="Password"
+        type="password"
         onChange={(event) => {
-            setUserName( event.target.value)
-        }} />
-        <input 
-        type='text' 
-        placeholder='Password' 
-        onChange={(event) => {
-            setUserName(event.target.value)
-        }} />
-        <button 
-        onClick={() => {
-            signUp()   
-        } }
-        >Login</button>
+          setPassword(event.target.value);
+        }}
+      />
+      <button onClick={login}> Login</button>
     </div>
-    )
+  );
 }
 
-export default Login
+export default Login;
